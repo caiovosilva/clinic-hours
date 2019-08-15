@@ -1,0 +1,26 @@
+post specific day rule example:
+{
+	"specificDay": 
+            {
+            "day": "25-01-2018",
+            "intervals": [
+            	{
+            		"start": "14:30", "end": "15:00" 
+            	}, { 
+            		"start": "15:10", "end": "15:30" 
+            	}]
+            }
+}
+
+post daily rule example:
+{
+	"daily": 
+            {
+            "intervals": [
+            	{
+            		"start": "14:30", "end": "15:00" 
+            	}, { 
+            		"start": "15:10", "end": "15:30" 
+            	}]
+            }
+}
