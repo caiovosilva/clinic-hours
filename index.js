@@ -1,6 +1,7 @@
 const Joi = require('joi')
 const express = require('express')
-const app = express();
+const app = express()
+const jsonHandler = require('./jsonHandler')
 
 app.use(express.json());
 
@@ -174,6 +175,17 @@ app.delete('/api/courses', (req,res) => {
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Listening on port ${port}...`))
-// var moment = require('moment');
-// var date = moment('20-04-2012', 'DD-MM-YYYY');
-// console.log(date)
+
+jsonHandler.postRule({
+    type: "daily",
+    intervals: [
+        { 
+            start: "9:30",
+            end: "10:00" 
+        }, 
+        { 
+            start: "19:10",
+            end: "20:30" 
+        }
+    ]
+})
