@@ -1,23 +1,74 @@
 const fs = require('fs')
+var request = require('request');
 
-function postRule(rule) {
-    console.log(rule)
-    try {
-        fs.readFile('rules.json', 'utf8', function readFileCallback(err, data){
-            if (err){
-                return console.log(err);
+function saveRule(rule, res) {     
+    const moment = require('moment')
+    const newRule = {}
+
+    if(rule.specificDay) {
+        newRule.type = 'specificDay'
+        newRule.intervals = []
+        if('day' in rule.specificDay) {
+            const date = moment(rule.specificDay.day, 'DD-MM-YYYY')
+            if(date.isValid()) newRule.day = date._i
+        }
+        if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals))
+            for(let k in rule.specificDay.intervals) {   //MUDAR PRA ARRAY METHODS
+                const element = rule.specificDay.intervals[k]
+                const newInterval = {}
+                if('start' in element) newInterval.start = element.start
+                if('end' in element) newInterval.end = element.end
+                if(newInterval.start && newInterval.end) newRule.intervals.push(newInterval)
             }
-            obj = JSON.parse(data); //now it an object
-            //obj.`${rule.type}`.push(rule) //add some data
-            obj.rules.push(rule); 
-            jsonRules = JSON.stringify(obj); //convert it back to json
-            fs.writeFile('./rules.json', jsonRules, 'utf8', (err) => {
-                if (err) throw err
-            }); // write it back 
-        });      
-    } catch (err) {
-        return console.error(err)
+        if(!newRule.day || newRule.intervals.length<1)
+            return res.status(400).send(`Bad request - visit the home screen for the API reference`)
     }
+    else 
+    if(rule.daily) {
+        newRule.type = 'daily'
+        newRule.intervals = []
+        if('intervals' in rule.daily && Array.isArray(rule.daily.intervals))
+            for(let k in rule.daily.intervals) {  //MUDAR PRA ARRAY METHODS
+                const element = rule.daily.intervals[k]
+                const newInterval = {}
+                if('start' in element) newInterval.start = element.start
+                if('end' in element) newInterval.end = element.end
+                if(newInterval.start && newInterval.end) newRule.intervals.push(newInterval)
+            }
+        if(newRule.intervals.length<1)
+            return res.status(400).send(`Bad request - visit the home screen for the API reference`)
+    }
+    else 
+    if(rule.weekly) {
+        const element = rule.weekly
+        newRule.type = 'weekly'
+        if('day' in element) newRule.day = parseInt(element.day)
+        if('start' in element) newRule.start = element.start
+        if('end' in element) newRule.end = element.end
+    }
+    else
+        return res.status(400).send(`Rule for a specific day, daily or weekly not found`)
+
+    fs.readFile('rules.json', 'utf8', readFileCallback);    
+
+    function readFileCallback(err, data){
+        if (err) res.send(`Internal error`)
+
+        obj = JSON.parse(data); //now it an object
+        const rules = obj.rules
+        if(rules.length <1 ) newRule.id = 0
+        else{
+            newRule.id = rules[rules.length - 1].id + 1
+        }
+        rules.push(newRule) //add some data
+        jsonRules = JSON.stringify(obj, null, 2); //convert it back to json
+        fs.writeFile('./rules.json', jsonRules, 'utf8', (err) => {
+            if (err) res.send(`Internal error`)
+            res.send(newRule)
+        });
+    }
+
+
 }
 
-module.exports.postRule = postRule
+module.exports.saveRule = saveRule

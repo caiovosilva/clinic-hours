@@ -24,3 +24,13 @@ post daily rule example:
             	}]
             }
 }
+
+post weekly rule example:
+{
+	"weekly": 
+            {
+	            "day": 0,
+	            "start": "14:30", 
+	            "end": "15:00" 
+            }
+}
