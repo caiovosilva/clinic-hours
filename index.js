@@ -88,7 +88,7 @@ function postRule(rule, res) {
             if(date.isValid()) newRule.day = date._i
         }
         if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals))
-            for(let k in rule.specificDay.intervals) {
+            for(let k in rule.specificDay.intervals) {   //MUDAR PRA ARRAY METHODS
                 const element = rule.specificDay.intervals[k]
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
