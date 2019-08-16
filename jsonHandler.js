@@ -56,12 +56,12 @@ function saveRule(rule, res, callBack) {
     else
         callBack(res.status(400).send(`Rule for a specific day, daily or weekly not found`))
 
-    fs.readFile('rules.json', 'utf8', readFileCallback);    
+    fs.readFile('rules.json', 'utf8', readFileCallback)  
 
     function readFileCallback(err, data){
-        if (err) res.send(`Internal error`)
+        if (err) callBack(err)
 
-        obj = JSON.parse(data); //now it an object
+        const obj = JSON.parse(data); //now as an object
         const rules = obj.rules
         if(rules.length <1 ) newRule.id = 0
         else{
@@ -70,11 +70,33 @@ function saveRule(rule, res, callBack) {
         rules.push(newRule) //add some data
         jsonRules = JSON.stringify(obj, null, 2); //convert it back to json
         fs.writeFile('./rules.json', jsonRules, 'utf8', (err) => {
-            if (err) res.send(`Internal error`)
+            if (err) callBack(err)
             callBack(newRule)
-        });
+        })
     }
-    //return newRule
+}
+
+function deleteRule(ruleId, res, callBack) {
+    //look up the course
+    //if not existing, return 404
+    fs.readFile('rules.json', 'utf8', (err, data) => {
+        if (err) callBack(err)
+        const obj = JSON.parse(data);
+        const oldRules = obj.rules
+        ruleId = parseInt(ruleId)
+        obj.rules = oldRules.filter((elem) => {
+            console.log(elem.id)
+            return elem.id !== ruleId
+        })
+        if(oldRules.length !== obj.rules.length) {
+            jsonRules = JSON.stringify(obj, null, 2);
+            fs.writeFile('./rules.json', jsonRules, 'utf8', (err) => {
+                callBack(err || obj.rules)
+            })
+        }
+        else callBack(res.status(404).send('the rule for the given ID was not found'))
+    })
 }
 
 module.exports.saveRule = saveRule
+module.exports.deleteRule = deleteRule
