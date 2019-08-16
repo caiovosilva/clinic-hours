@@ -9,11 +9,13 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
     //put the documentation here afterwards
-    res.send(rules)
+    //res.send(rules)
 })
 
 app.get('/api/rules', (req,res) => {
-    res.send(rules)
+    jsonHandler.listRules((returnedValue) => {
+        res.send(returnedValue)
+    })
 })
 
 app.get('/api/courses/:id', (req, res) => {

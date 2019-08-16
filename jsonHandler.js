@@ -83,7 +83,7 @@ function deleteRule(ruleId, res, callBack) {
         if (err) callBack(err)
         const obj = JSON.parse(data);
         const oldRules = obj.rules
-        ruleId = parseInt(ruleId)
+        ruleId = parseInt(ruleId) //would not need that if using typescript
         obj.rules = oldRules.filter((elem) => {
             console.log(elem.id)
             return elem.id !== ruleId
@@ -98,5 +98,14 @@ function deleteRule(ruleId, res, callBack) {
     })
 }
 
+function listRules(callBack) {
+    fs.readFile('rules.json', 'utf8', (err, data) => {
+        if (err) callBack(err)
+        const obj = JSON.parse(data);
+        callBack(obj.rules)
+    })
+}
+
 module.exports.saveRule = saveRule
 module.exports.deleteRule = deleteRule
+module.exports.listRules = listRules
