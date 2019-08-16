@@ -1,7 +1,6 @@
 const fs = require('fs')
-var request = require('request');
 
-function saveRule(rule, res) {     
+function saveRule(rule, res, callBack) {     
     const moment = require('moment')
     const newRule = {}
 
@@ -12,16 +11,21 @@ function saveRule(rule, res) {
             const date = moment(rule.specificDay.day, 'DD-MM-YYYY')
             if(date.isValid()) newRule.day = date._i
         }
-        if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals))
+        if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals)) {
             for(let k in rule.specificDay.intervals) {   //MUDAR PRA ARRAY METHODS
                 const element = rule.specificDay.intervals[k]
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
                 if('end' in element) newInterval.end = element.end
-                if(newInterval.start && newInterval.end) newRule.intervals.push(newInterval)
+                if(newInterval.start && newInterval.end) 
+                    newRule.intervals.push(newInterval)
+                else 
+                    callBack(res.status(400).send(`start or end not found`))
+
             }
+        }
         if(!newRule.day || newRule.intervals.length<1)
-            return res.status(400).send(`Bad request - visit the home screen for the API reference`)
+            callBack(res.status(400).send(`Bad request - visit the home screen for the API reference`))
     }
     else 
     if(rule.daily) {
@@ -33,10 +37,13 @@ function saveRule(rule, res) {
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
                 if('end' in element) newInterval.end = element.end
-                if(newInterval.start && newInterval.end) newRule.intervals.push(newInterval)
+                if(newInterval.start && newInterval.end) 
+                    newRule.intervals.push(newInterval)
+                else 
+                    callBack(res.status(400).send(`start or end not found`))
             }
         if(newRule.intervals.length<1)
-            return res.status(400).send(`Bad request - visit the home screen for the API reference`)
+            callBack(res.status(400).send(`Intervals array is empty`))
     }
     else 
     if(rule.weekly) {
@@ -47,7 +54,7 @@ function saveRule(rule, res) {
         if('end' in element) newRule.end = element.end
     }
     else
-        return res.status(400).send(`Rule for a specific day, daily or weekly not found`)
+        callBack(res.status(400).send(`Rule for a specific day, daily or weekly not found`))
 
     fs.readFile('rules.json', 'utf8', readFileCallback);    
 
@@ -64,11 +71,10 @@ function saveRule(rule, res) {
         jsonRules = JSON.stringify(obj, null, 2); //convert it back to json
         fs.writeFile('./rules.json', jsonRules, 'utf8', (err) => {
             if (err) res.send(`Internal error`)
-            res.send(newRule)
+            callBack(newRule)
         });
     }
-
-
+    //return newRule
 }
 
 module.exports.saveRule = saveRule

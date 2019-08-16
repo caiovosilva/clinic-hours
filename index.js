@@ -25,7 +25,9 @@ app.get('/api/courses/:id', (req, res) => {
 })
 
 app.post('/api/rules', (req,res) => {
-    res.send(jsonHandler.saveRule(req.body, res))
+    jsonHandler.saveRule(req.body, res, (returnedValue) => {
+        res.send(returnedValue)
+    })
 })
 
 app.put('/api/courses/:id', (req,res) => {
