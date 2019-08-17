@@ -12,8 +12,7 @@ function saveRule(rule, res, callBack) {
             if(date.isValid()) newRule.day = date._i
         }
         if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals)) {
-            for(let k in rule.specificDay.intervals) {   //MUDAR PRA ARRAY METHODS
-                const element = rule.specificDay.intervals[k]
+            rule.specificDay.intervals.forEach((element) => {
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
                 if('end' in element) newInterval.end = element.end
@@ -21,8 +20,7 @@ function saveRule(rule, res, callBack) {
                     newRule.intervals.push(newInterval)
                 else 
                     callBack(res.status(400).send(`start or end not found`))
-
-            }
+            })
         }
         if(!newRule.day || newRule.intervals.length<1)
             callBack(res.status(400).send(`Bad request - visit the home screen for the API reference`))
@@ -32,8 +30,7 @@ function saveRule(rule, res, callBack) {
         newRule.type = 'daily'
         newRule.intervals = []
         if('intervals' in rule.daily && Array.isArray(rule.daily.intervals))
-            for(let k in rule.daily.intervals) {  //MUDAR PRA ARRAY METHODS
-                const element = rule.daily.intervals[k]
+            rule.daily.intervals.forEach((element) => {
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
                 if('end' in element) newInterval.end = element.end
@@ -41,7 +38,7 @@ function saveRule(rule, res, callBack) {
                     newRule.intervals.push(newInterval)
                 else 
                     callBack(res.status(400).send(`start or end not found`))
-            }
+            })
         if(newRule.intervals.length<1)
             callBack(res.status(400).send(`Intervals array is empty`))
     }
