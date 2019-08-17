@@ -25,12 +25,17 @@ post daily rule example:
             }
 }
 
-post weekly rule example:
+post weekly rule example: 
+//0..6 where 0 is sunday and 6 is saturday
 {
 	"weekly": 
             {
-	            "day": 0,
-	            "start": "14:30", 
-	            "end": "15:00" 
+            "dayOfWeek": 1,
+            "intervals": [
+            	{
+            		"start": "14:30", "end": "15:00" 
+            	}, { 
+            		"start": "15:10", "end": "15:30" 
+            	}]
             }
 }

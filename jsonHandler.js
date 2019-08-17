@@ -3,13 +3,13 @@ const moment = require('moment')
 
 function saveRule(rule, res, callBack) {     
     const newRule = {}
+    newRule.intervals = []
 
     if(rule.specificDay) {
         newRule.type = 'specificDay'
-        newRule.intervals = []
         if('day' in rule.specificDay) {
             const date = moment(rule.specificDay.day, 'DD-MM-YYYY')
-            if(date.isValid()) newRule.day = date._i
+            if(date.isValid()) newRule.day = date.format('DD-MM-YYYY').toString()
         }
         if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals)) {
             rule.specificDay.intervals.forEach(element => {
@@ -28,7 +28,6 @@ function saveRule(rule, res, callBack) {
     else 
     if(rule.daily) {
         newRule.type = 'daily'
-        newRule.intervals = []
         if('intervals' in rule.daily && Array.isArray(rule.daily.intervals))
             rule.daily.intervals.forEach(element => {
                 const newInterval = {}
@@ -44,11 +43,22 @@ function saveRule(rule, res, callBack) {
     }
     else 
     if(rule.weekly) {
-        const element = rule.weekly
         newRule.type = 'weekly'
-        if('day' in element) newRule.day = parseInt(element.day)
-        if('start' in element) newRule.start = element.start
-        if('end' in element) newRule.end = element.end
+        if('dayOfWeek' in rule.weekly)
+            newRule.dayOfWeek = parseInt(rule.weekly.dayOfWeek)
+
+        if('intervals' in rule.weekly && Array.isArray(rule.weekly.intervals))
+            rule.weekly.intervals.forEach(element => {
+                const newInterval = {}
+                if('start' in element) newInterval.start = element.start
+                if('end' in element) newInterval.end = element.end
+                if(newInterval.start && newInterval.end) 
+                    newRule.intervals.push(newInterval)
+                else 
+                    callBack(res.status(400).send(`start or end not found`))
+            })
+        if(newRule.intervals.length<1)
+            callBack(res.status(400).send(`Intervals array is empty`))
     }
     else
         callBack(res.status(400).send(`Rule for a specific day, daily or weekly not found`))
