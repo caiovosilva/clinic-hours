@@ -35,17 +35,18 @@ app.delete('/api/rules/:id', (req,res) => {
 })
 
 //return all rules stored
-app.get('/api/workinghours/:startDate/:endDate?', (req,res) => {
+app.get('/api/workinghours/:startDate/:endDate', (req,res) => {
+    const moment = require('moment')
+
     jsonHandler.listRules((returnedValue) => {
         const businessLogic = require('./businessLogic')
         const startDate = moment(req.params.startDate, 'DD-MM-YYYY')
-        let endDate
-        if(req.params.endDate) endDate = moment(req.params.endDate, 'DD-MM-YYYY')
-        if(startDate.isValid() && (endDate && endDate.isValid() || !endDate))
-            businessLogic.getWorkingHours(startDate, endDate, returnedValue, (result =>
-                res.send(result)
-            ))
-        
+        const endDate = moment(req.params.endDate, 'DD-MM-YYYY')
+        if(!startDate.isValid() || !endDate.isValid() || startDate.isAfter(endDate))
+            res.status(400).send(`Invalid dates found`)
+        businessLogic.getWorkingHours(startDate, endDate, returnedValue, (result =>
+            res.send(result)
+        ))     
     })
 })
 

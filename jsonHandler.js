@@ -12,7 +12,7 @@ function saveRule(rule, res, callBack) {
             if(date.isValid()) newRule.day = date._i
         }
         if('intervals' in rule.specificDay && Array.isArray(rule.specificDay.intervals)) {
-            rule.specificDay.intervals.forEach((element) => {
+            rule.specificDay.intervals.forEach(element => {
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
                 if('end' in element) newInterval.end = element.end
@@ -30,7 +30,7 @@ function saveRule(rule, res, callBack) {
         newRule.type = 'daily'
         newRule.intervals = []
         if('intervals' in rule.daily && Array.isArray(rule.daily.intervals))
-            rule.daily.intervals.forEach((element) => {
+            rule.daily.intervals.forEach(element => {
                 const newInterval = {}
                 if('start' in element) newInterval.start = element.start
                 if('end' in element) newInterval.end = element.end
@@ -82,7 +82,6 @@ function deleteRule(ruleId, res, callBack) {
         const oldRules = obj.rules
         ruleId = parseInt(ruleId) //would not need that if using typescript
         obj.rules = oldRules.filter((elem) => {
-            console.log(elem.id)
             return elem.id !== ruleId
         })
         if(oldRules.length !== obj.rules.length) {
