@@ -1,7 +1,7 @@
 const fs = require('fs')
+const moment = require('moment')
 
 function saveRule(rule, res, callBack) {     
-    const moment = require('moment')
     const newRule = {}
 
     if(rule.specificDay) {
