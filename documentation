@@ -3,7 +3,7 @@
 ## POST New Rule
 
 ```sh
-/rules
+https://clinichours.herokuapp.com/rules
 ```
 Post Specific day body example:
 {
@@ -95,7 +95,7 @@ Sample response:
 ## GET All Rules
 
 ```sh
-/rules
+https://clinichours.herokuapp.com/rules
 ```
 Sample response:
 [
@@ -129,10 +129,10 @@ Sample response:
 ## DELETE Rule
 
 ```sh
-/rules/:id
+https://clinichours.herokuapp.com/rules/:id
 ```
 Request example:
-/rules/1
+https://clinichours.herokuapp.com/rules/1
 This request will respond the remaining rules
 
 ## GET Working Hours

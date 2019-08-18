@@ -32,17 +32,6 @@ npm run test
 
 * Github: [@caiovosilva](https://github.com/caiovosilva)
 
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/caiovosilva/clinic-hours/issues).
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
 ## 📝 License
 
 This project is [ISC](https://github.com/caiovosilva/clinic-hours/blob/master/LICENSE) licensed.
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

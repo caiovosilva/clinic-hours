@@ -22,12 +22,13 @@
 					"raw": "{\n\t\"specificDay\": \n            {\n            \"day\": \"04-01-2018\",\n            \"intervals\": [\n            \t{\n            \t\t\"start\": \"14:30\", \"end\": \"15:00\" \n            \t}, { \n            \t\t\"start\": \"15:10\", \"end\": \"15:30\" \n            \t}]\n            }\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/rules",
-					"protocol": "http",
+					"raw": "https://clinichours.herokuapp.com/rules",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"clinichours",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"rules"
 					]
@@ -53,12 +54,13 @@
 					"raw": "{\n\t\"daily\": \n            {\n            \"intervals\": [\n            \t{\n            \t\t\"start\": \"5:00\", \"end\": \"15:00\" \n            \t}]\n            }\n}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/rules",
-					"protocol": "http",
+					"raw": "https://clinichours.herokuapp.com/rules",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"clinichours",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"rules"
 					]
@@ -84,12 +86,13 @@
 					"raw": "{\n\t\"weekly\": \n            {\n            \"dayOfWeek\": 1,\n            \"intervals\": [\n            \t{\n            \t\t\"start\": \"14:30\", \"end\": \"15:00\" \n            \t}, { \n            \t\t\"start\": \"15:10\", \"end\": \"15:30\" \n            \t}]\n            }\n}\n"
 				},
 				"url": {
-					"raw": "http://localhost:3000/rules",
-					"protocol": "http",
+					"raw": "https://clinichours.herokuapp.com/rules",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"clinichours",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"rules"
 					]
@@ -104,12 +107,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/rules/1",
-					"protocol": "http",
+					"raw": "https://clinichours.herokuapp.com/rules/1",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"clinichours",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"rules",
 						"1"
@@ -125,12 +129,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/rules",
-					"protocol": "http",
+					"raw": "https://clinichours.herokuapp.com/rules",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"clinichours",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"rules"
 					]
@@ -145,12 +150,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/workinghours/01-01-2018/10-01-2018",
-					"protocol": "http",
+					"raw": "https://clinichours.herokuapp.com/workinghours/01-01-2018/10-01-2018",
+					"protocol": "https",
 					"host": [
-						"localhost"
+						"clinichours",
+						"herokuapp",
+						"com"
 					],
-					"port": "3000",
 					"path": [
 						"workinghours",
 						"01-01-2018",
