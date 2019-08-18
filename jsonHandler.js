@@ -112,6 +112,4 @@ function listRules(callBack) {
     })
 }
 
-module.exports.saveRule = saveRule
-module.exports.deleteRule = deleteRule
-module.exports.listRules = listRules
+module.exports = { saveRule, deleteRule , listRules }

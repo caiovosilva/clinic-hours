@@ -2,7 +2,6 @@ const moment = require('moment')
 
 function getWorkingHours(startDate, endDate, rules, callBack) {
     const response = []
-    let day = startDate.clone()
     while(endDate.isSameOrAfter(startDate)) {
         const newRule = {}
         newRule.day = startDate.format('DD-MM-YYYY').toString()
