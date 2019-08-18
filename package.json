@@ -4,6 +4,7 @@
   "description": "An REST API to ease a clinic's working time management",
   "main": "app.js",
   "scripts": {
+    "start": "node src/app",
     "test": "mocha --recursive --exit"
   },
   "repository": {
