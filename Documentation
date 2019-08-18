@@ -1,41 +1,42 @@
 post specific day rule example:
 {
-	"specificDay": 
+    "specificDay": 
+    {
+        "day": "04-01-2018",
+        "intervals": [
             {
-            "day": "25-01-2018",
-            "intervals": [
-            	{
-            		"start": "14:30", "end": "15:00" 
-            	}, { 
-            		"start": "15:10", "end": "15:30" 
-            	}]
+                "start": "14:30", "end": "15:00" 
+            }, { 
+                "start": "15:10", "end": "15:30" 
             }
+        ]
+    }
 }
 
 post daily rule example:
 {
-	"daily": 
-            {
+    "daily": 
+        {
             "intervals": [
-            	{
-            		"start": "14:30", "end": "15:00" 
-            	}, { 
-            		"start": "15:10", "end": "15:30" 
-            	}]
-            }
+                {
+                    "start": "5:00", "end": "15:00" 
+                }
+            ]
+        }
 }
 
 post weekly rule example: 
 //0..6 where 0 is sunday and 6 is saturday
 {
-	"weekly": 
+    "weekly": 
+    {
+        "dayOfWeek": 1,
+        "intervals": [
             {
-            "dayOfWeek": 1,
-            "intervals": [
-            	{
-            		"start": "14:30", "end": "15:00" 
-            	}, { 
-            		"start": "15:10", "end": "15:30" 
-            	}]
+                "start": "14:30", "end": "15:00" 
+            }, { 
+                "start": "15:10", "end": "15:30" 
             }
+        ]
+    }
 }

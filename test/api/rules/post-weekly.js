@@ -1,7 +1,7 @@
 const expect = require('chai').expect
 const request = require('supertest')
 
-const app = require('../../../app.js')
+const app = require('../../../src/app.js')
 
 describe('POST /rules', () => {
     it('Creating a new weekly rule works', (done) => {
