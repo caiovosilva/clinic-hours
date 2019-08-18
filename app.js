@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
 })
 
 //return all rules stored
-app.get('/api/rules', (req,res) => {
+app.get('/rules', (req,res) => {
     jsonHandler.listRules((returnedValue =>
         res.send(returnedValue)
     ))
@@ -20,7 +20,7 @@ app.get('/api/rules', (req,res) => {
 
 //save new rule
 //return the saved rule
-app.post('/api/rules', (req,res) => {
+app.post('/rules', (req,res) => {
     jsonHandler.saveRule(req.body, res, (returnedValue =>
         res.send(returnedValue)
     ))
@@ -28,14 +28,14 @@ app.post('/api/rules', (req,res) => {
 
 //delete rule
 //return the remaining rules
-app.delete('/api/rules/:id', (req,res) => {
+app.delete('/rules/:id', (req,res) => {
     jsonHandler.deleteRule(req.params.id, res, (returnedValue =>
         res.send(returnedValue)
     ))
 })
 
 //return all rules stored
-app.get('/api/workinghours/:startDate/:endDate', (req,res) => {
+app.get('/workinghours/:startDate/:endDate', (req,res) => {
     const moment = require('moment')
 
     jsonHandler.listRules((returnedValue) => {
@@ -52,3 +52,5 @@ app.get('/api/workinghours/:startDate/:endDate', (req,res) => {
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Listening on port ${port}...`))
+
+module.exports = app;
