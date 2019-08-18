@@ -1,0 +1,182 @@
+<h1 align="center">Welcome to the Documentation 👋</h1>
+
+## POST New Rule
+
+```sh
+/rules
+```
+Post Specific day body example:
+{
+    "specificDay": 
+    {
+        "day": "04-01-2018",
+        "intervals": [
+            {
+                "start": "14:30", "end": "15:00" 
+            }, { 
+                "start": "15:10", "end": "15:30" 
+            }
+        ]
+    }
+}
+Sample response:
+{
+    "intervals": [
+        {
+            "start": "14:30",
+            "end": "15:00"
+        },
+        {
+            "start": "15:10",
+            "end": "15:30"
+        }
+    ],
+    "type": "specificDay",
+    "day": "04-01-2018",
+    "id": 3
+}
+
+Post daily rule body example:
+{
+    "daily": 
+        {
+            "intervals": [
+                {
+                    "start": "5:00", "end": "15:00" 
+                }
+            ]
+        }
+}
+Sample response:
+{
+    "intervals": [
+        {
+            "start": "5:00",
+            "end": "15:00"
+        }
+    ],
+    "type": "daily",
+    "id": 4
+}
+
+Post weekly rule body example: 
+//0..6 where 0 is sunday and 6 is saturday
+{
+    "weekly": 
+    {
+        "dayOfWeek": 1,
+        "intervals": [
+            {
+                "start": "14:30", "end": "15:00" 
+            }, { 
+                "start": "15:10", "end": "15:30" 
+            }
+        ]
+    }
+}
+Sample response:
+{
+    "intervals": [
+        {
+            "start": "14:30",
+            "end": "15:00"
+        },
+        {
+            "start": "15:10",
+            "end": "15:30"
+        }
+    ],
+    "type": "weekly",
+    "dayOfWeek": 1,
+    "id": 5
+}
+
+
+## GET All Rules
+
+```sh
+/rules
+```
+Sample response:
+[
+    {
+        "intervals": [
+            {
+                "start": "5:00",
+                "end": "15:00"
+            }
+        ],
+        "type": "daily",
+        "id": 0
+    },
+    {
+        "intervals": [
+            {
+                "start": "14:30",
+                "end": "15:00"
+            },
+            {
+                "start": "15:10",
+                "end": "15:30"
+            }
+        ],
+        "type": "specificDay",
+        "day": "04-01-2018",
+        "id": 1
+    }
+]
+
+## DELETE Rule
+
+```sh
+/rules/:id
+```
+Request example:
+/rules/1
+This request will respond the remaining rules
+
+## GET Working Hours
+
+```sh
+/workinghours/:startDate/:endDate
+```
+Request example:
+/workinghours/01-01-2018/04-01-2018
+Sample response:
+[
+    {
+        "day": "01-01-2018",
+        "intervals": [
+            {
+                "start": "5:00",
+                "end": "15:00"
+            }
+        ]
+    },
+    {
+        "day": "02-01-2018",
+        "intervals": [
+            {
+                "start": "5:00",
+                "end": "15:00"
+            },
+            {
+                "start": "5:00",
+                "end": "15:00"
+            }
+        ]
+    },
+    {
+        "day": "03-01-2018",
+        "intervals": [
+            {
+                "start": "5:00",
+                "end": "15:00"
+            },
+            {
+                "start": "5:00",
+                "end": "15:00"
+            }
+        ]
+    }
+]
