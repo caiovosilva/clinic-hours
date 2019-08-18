@@ -6,11 +6,6 @@ const fs = require('fs')
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    //put the documentation here afterwards
-    //res.send(rules)
-})
-
 //return all rules stored
 app.get('/rules', (req,res) => {
     jsonHandler.listRules((returnedValue =>

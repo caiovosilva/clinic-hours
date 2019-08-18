@@ -68,14 +68,14 @@ function saveRule(rule, res, callBack) {
     function readFileCallback(err, data){
         if (err) callBack(err)
 
-        const obj = JSON.parse(data); //now as an object
+        const obj = JSON.parse(data);
         const rules = obj.rules
         if(rules.length <1 ) newRule.id = 0
         else{
             newRule.id = rules[rules.length - 1].id + 1
         }
-        rules.push(newRule) //add some data
-        jsonRules = JSON.stringify(obj, null, 2); //convert it back to json
+        rules.push(newRule)
+        jsonRules = JSON.stringify(obj, null, 2);
         fs.writeFile('./rules.json', jsonRules, 'utf8', (err) => {
             if (err) callBack(err)
             callBack(newRule)
@@ -90,7 +90,7 @@ function deleteRule(ruleId, res, callBack) {
         if (err) callBack(err)
         const obj = JSON.parse(data);
         const oldRules = obj.rules
-        ruleId = parseInt(ruleId) //would not need that if using typescript
+        ruleId = parseInt(ruleId)
         obj.rules = oldRules.filter((elem) => {
             return elem.id !== ruleId
         })
